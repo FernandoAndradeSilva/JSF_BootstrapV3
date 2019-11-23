@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/layout.xhtml">
+
+
+	<ui:define name="content">
+
+		<f:metadata>		
+			<f:viewParam name="tipo" value="#{computadorMB.tipo}"/>
+		</f:metadata>
+
+
+
+		<h:form id="form">		
+
+
+			<div id="page-wrapper">
+
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<h3 class=" pull-left">TELA DE CONSULTA</h3>
+
+
+						<div class="pull-right" align="center">
+							<br />
+							<h:panelGrid columns="5" border="2">
+
+								<p:commandButton styleClass="btn-success" 
+								action="#{computadorMB.imprimir()}" value="BUSCAR"
+									style="width: 100%;" icon="fa fa-search" />
+								
+								
+								
+								
+								<p:selectOneMenu rendered="#{computadorMB.tipo == 2}" value="#{computadorMB.soPesquisa}"
+								 converter="omnifaces.SelectItemsConverter">
+									<f:selectItem itemLabel="Sistema Operacional"
+										itemValue="#{null}" />
+									<f:selectItems value="#{menuMaker.sosEstacao}"/>
+								</p:selectOneMenu>
+								
+								<p:selectOneMenu rendered="#{computadorMB.tipo == 1}" value="#{computadorMB.soPesquisa}"
+								 converter="omnifaces.SelectItemsConverter">
+									<f:selectItem itemLabel="Sistema Operacional"
+										itemValue="#{null}" />
+									<f:selectItems value="#{menuMaker.sosServidor}"/>
+								</p:selectOneMenu>
+								
+
+								<p:selectOneMenu value="#{computadorMB.arquiteturaPesquisa}">
+									<f:selectItem itemLabel="Arquitetura" itemValue="#{null}" />
+									<f:selectItem itemLabel="32 Bits" itemValue="32b" />
+									<f:selectItem itemLabel="64 Bits" itemValue="64b" />
+								</p:selectOneMenu>
+
+								
+
+								<p:selectOneMenu value="#{computadorMB.marcaPesquisa}" 
+								converter="omnifaces.SelectItemsConverter">
+									<f:selectItem itemLabel="Marca" itemValue="#{null}" />
+									<f:selectItems value="#{menus.listMarcas()}" />
+								</p:selectOneMenu>
+
+
+
+							</h:panelGrid>
+						</div>
+
+
+					</div>
+				</div>
+
+				<p:separator />
+
+
+				<div class="container-fluid" id="formCadastroComputador">
+					<!-- Page Heading -->
+					<div class="row" id="main">
+						<div class="col-sm-12 col-md-12" id="content">
+
+
+							<p:dataTable id="myTable" var="pc"
+								value="#{computerTest.retorna()}">
+
+								<p:column headerText="HOSTNAME" filterBy="#{pc.hostName}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.hostName}" />
+								</p:column>
+
+								<p:column headerText="MODELO" filterBy="#{pc.modelo}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.modelo}" />
+								</p:column>
+
+
+								<p:column filterBy="#{pc.matricula}" filterMatchMode="contains"
+									headerText="MATRICULA">
+									<h:outputText value="#{pc.matricula}" />
+								</p:column>
+
+
+								<p:column headerText="SERIAL" filterBy="#{pc.serial}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.serial}" />
+								</p:column>
+
+								<p:column headerText="PROCESSADOR" filterBy="#{pc.processador}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.processador}" />
+								</p:column>
+
+								<p:column headerText="MEMÓRIA(GB)" filterBy="#{pc.memoria}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.memoria}" />
+								</p:column>
+
+								<p:column headerText="HD(GB)" filterBy="#{pc.hd}"
+									filterMatchMode="contains">
+									<h:outputText value="#{pc.hd}" />
+								</p:column>
+
+								<p:column style="text-align: center" headerText="AÇÕES">
+									<p:commandButton icon="fa fa-edit" title="Editar"
+										styleClass="btn-warning" />
+									<p:commandButton icon="fa fa-trash" title="Remover"
+										styleClass="btn-danger" />
+									<p:commandButton icon="fa fa-user" title="Usuário Responsável"
+										styleClass="btn-info" />
+
+								</p:column>
+
+							</p:dataTable>
+
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</h:form>
+		<h:outputScript library="js" name="validar.js" />
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+
+
+
+
+
+    <ui:define name="content">
+
+        <h:form id="form">
+			
+			 <p:growl id="growlCadastro" sticky="false" life="6000"/>
+			
+
+            <div id="page-wrapper">
+
+                <h2>CADASTRO COMPUTADOR</h2>
+                <p:separator/>
+
+			
+                <h:selectOneRadio layout="pageDirection" id="consolePc" value="#{computadorMB.tipo}" style="display: none"
+                                  unselectable="false" onchange="habilitaForm(this.value)">
+                    <f:selectItem itemLabel="Estação" itemValue="estacao"/>
+                    <f:selectItem itemLabel="Servidor" itemValue="servidor"/>
+                    <f:selectItem itemLabel="Notebook" itemValue="notebook"/>
+                </h:selectOneRadio>
+
+                <p:selectOneRadio id="consoleImp"  style="display: none"
+                                  unselectable="false" onchange="habilitaForm(this.value)">
+                    <f:selectItem itemLabel="Colorida" itemValue="estacao"/>
+                    <f:selectItem itemLabel="Monocromática" itemValue="servidor"/>
+                </p:selectOneRadio>
+
+                <p:selectOneRadio id="consoleRed"  style="display: none"
+                                  unselectable="false" onchange="habilitaForm(this.value)">
+                    <f:selectItem itemLabel="Switch" itemValue="estacao"/>
+                    <f:selectItem itemLabel="Roteador" itemValue="servidor"/>
+                    <f:selectItem itemLabel="Adaptador" itemValue="notebook"/>
+                </p:selectOneRadio>
+				
+                <br/>
+                
+                
+                
+
+                <div class="container-fluid" id="formCadastroComputador">
+                    <!-- Page Heading -->
+                    <div class="row" id="main">
+                        <div class="col-sm-10 col-md-10 col-lg-10 well" id="content" style="display: none">
+                            <div class="row">
+                                <div class="camposGerais">
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Nome: "/>
+                                        <h:inputText value="#{computadorMB.computador.nome}" styleClass="form-control"/>
+                                    </div>
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Matricula: "/>
+                                        <h:inputText value="#{computadorMB.computador.matricula}" styleClass="form-control"/>
+                                    </div>
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Serial: "/>
+                                        <h:inputText value="#{computadorMB.computador.serial}" styleClass="form-control"/>
+                                    </div>
+
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Modelo: "/>
+                                        <h:inputText value="#{computadorMB.computador.modelo}" styleClass="form-control"/>
+                                    </div>
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Marca: "/>
+                                        <h:selectOneMenu style="background-color: white;"
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         styleClass="form-control"                                                         
+                                                         value="#{computadorMB.computador.marca}">
+                                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                            <f:selectItems value="#{menus.listMarcas()}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                </div>
+
+                                <div id="camposComputador" style="display: none">
+                                    <div class="col-sm-3" id="rowEst" align="left" style="display: none">
+                                        <h:outputText value="Monitor:"/>
+                                        <h:selectOneMenu style="background-color: white;"
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         styleClass="form-control"
+                                                         value="#{computadorMB.computador.monitor}">
+                                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                            <f:selectItems value="#{menus.selectMonitores()}"/>
+
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                    <div class="col-sm-3" id="rowServ" align="left" style="display: none">
+                                        <h:outputText value="IP:"/>
+                                        <h:inputText value="#{computadorMB.computador.ip}" styleClass="form-control"/>
+                                    </div>
+
+                                    <div class="col-sm-3" id="rowNot" align="left" style="display: none">
+                                        <h:outputText value="Tamanho da Tela:"/>
+                                        <h:inputText value="#{computadorMB.computador.tamanhoTela}" styleClass="form-control"/>
+                                    </div>
+
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Sistema Operacional: "/>
+
+                                        <h:selectOneMenu id="SelectMenuEstacao"
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         styleClass="form-control"
+                                                         value="#{computadorMB.computador.sistemaOperacinal}"
+                                                         style="display: none ; background-color: white ; text-align: left">
+                                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                            <f:selectItems value="#{menus.selectSoEstacao()}"/>
+                                        </h:selectOneMenu>
+
+                                        <h:selectOneMenu id="SelectMenuServidor"
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         styleClass="form-control"
+                                                         value="#{computadorMB.computador.sistemaOperacinal}"
+                                                         style="display: none ; background-color: white ; text-align: left">
+                                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                            <f:selectItems value="#{menus.selectSoServidor()}"/>
+                                        </h:selectOneMenu>
+
+                                    </div>
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Arquitetura: "/>
+                                        <h:selectOneMenu style="background-color: white ; text-align: 
+                                        left" styleClass="form-control"
+                                        value="#{computadorMB.computador.arquitetura}">
+                                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                                            <f:selectItem itemLabel="32 Bits" itemValue="32b"/>
+                                            <f:selectItem itemLabel="64 Bits" itemValue="64b"/>
+                                        </h:selectOneMenu>
+                                    </div>
+
+
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Pocessador"/>
+                                        <h:inputText value="#{computadorMB.computador.processador}"
+                                         styleClass="form-control"/>
+                                    </div>
+
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="Memória(GB): "/>
+                                        <p:inputText type="number" 
+                                        value="#{computadorMB.computador.memoria}"
+                                        styleClass="form-control"/>
+                                    </div>
+                                    <div class="col-sm-3" align="left">
+                                        <h:outputText value="HD(GB): "/>
+                                        <p:inputText type="number" 
+                                        value="#{computadorMB.computador.hd}"
+                                        styleClass="form-control"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3 camposGerais" align="left">
+                                    <h:outputText value="Data de validade: "/>
+                                    <h:inputText styleClass="datepicker form-control" />
+                                </div>
+
+
+
+                                <div class="col-sm-6 camposGerais" align="left">
+                                    <h:outputText value="Observações"/>
+                                    <h:inputTextarea styleClass="form-control" rows="4"/>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" align="left" style="margin-top: 8px">
+
+                                    <p:commandButton value="SALVAR" action="#{computadorMB.salvarComputador()}"
+                                     styleClass="btn btn-primary btn-md" update="growlCadastro" />
+                                    <p:commandButton value="CANCELAR" styleClass="btn btn-default btn-md"
+                                                     style="background-color: white"/>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </h:form>
+        <h:outputScript library="js" name="validar.js"/>
+
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+
+            });
+        </script>
+
+
+    </ui:define>
+
+</ui:composition>
