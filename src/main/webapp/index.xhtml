@@ -11,20 +11,9 @@
 			<h:form id="form">
 				<h1>PÁGINA INICIAL</h1>
 				
-				
-				
+		
 
-				<h2>Manually creating new SelectItemGroup()</h2>
-				<p:selectOneMenu value="#{computadorMB.soSelecionando}"
-					converter="omnifaces.SelectItemsConverter">
-					<f:selectItem itemValue="#{null}" itemLabel="Select ..." />
-					<f:selectItems value="#{menuMaker.marcasSelectItems}" />					
-				</p:selectOneMenu>
-				
-				
-				
-				<p:commandButton action="#{computadorMB.imprimir()}"></p:commandButton>
-
+				<p:growl id="principal" sticky="false" life="6000"/>
 			</h:form>
 		</div>
 

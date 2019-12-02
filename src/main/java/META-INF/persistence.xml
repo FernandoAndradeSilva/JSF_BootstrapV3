@@ -9,6 +9,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 		<class>br.com.gerenciador.model.Marca</class>
 		<class>br.com.gerenciador.model.Monitor</class>
 		<class>br.com.gerenciador.model.Software</class>
+		<class>br.com.gerenciador.model.Usuario</class>
 		
 
 		<properties>

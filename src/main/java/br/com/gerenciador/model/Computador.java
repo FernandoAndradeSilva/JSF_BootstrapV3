@@ -2,6 +2,7 @@ package br.com.gerenciador.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +15,8 @@ public class Computador implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-    public static final int estacao = 1;
-    public static final int servidor = 2;
+    public static final int estacao = 2;
+    public static final int servidor = 1;
     public static final int notebook = 3;
 	
 	
@@ -49,8 +50,11 @@ public class Computador implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="sistemaoperacional",  nullable= true)	
-	private Software sistemaOperacinal = new Software();	
+	private Software sistemaOperacional = new Software();	
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="usuario",  nullable= true)	
+	private Usuario usuario = new Usuario();
 	
 	public long getId() {
 		return id;
@@ -128,12 +132,14 @@ public class Computador implements Serializable {
 		this.monitor = monitor;
 	}
 
-	public Software getSistemaOperacinal() {
-		return sistemaOperacinal;
+
+
+	public Software getSistemaOperacional() {
+		return sistemaOperacional;
 	}
 
-	public void setSistemaOperacinal(Software sistemaOperacinal) {
-		this.sistemaOperacinal = sistemaOperacinal;
+	public void setSistemaOperacional(Software sistemaOperacional) {
+		this.sistemaOperacional = sistemaOperacional;
 	}
 
 	public int getTipo() {
@@ -205,6 +211,24 @@ public class Computador implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Computador [id=" + id + ", nome=" + nome + ", matricula=" + matricula + ", serial=" + serial
+				+ ", modelo=" + modelo + ", processador=" + processador + ", memoria=" + memoria + ", hd=" + hd
+				+ ", arquitetura=" + arquitetura + ", observacoes=" + observacoes + ", tamanhoTela=" + tamanhoTela
+				+ ", ip=" + ip + ", tipo=" + tipo + ", marca=" + marca + ", monitor=" + monitor
+				+ ", sistemaOperacional=" + sistemaOperacional + "]";
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	
 	
 	

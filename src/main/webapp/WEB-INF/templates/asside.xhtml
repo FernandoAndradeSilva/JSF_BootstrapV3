@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -20,17 +21,16 @@
             <li>
                 <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-print"></i>  IMPRESSORAS <i class="fa fa-fw fa-angle-down pull-right"></i></a>
                 <ul id="submenu-2" class="collapse">
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> MULTIFUNCIONAIS</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> NÃO MULTIFUNCIONAIS</a></li>
+                    <li><p:link value="Multifuncionais" href="listProdutos.jsf?tipo=2"/></li>
+                    <li><p:link value="Não Multifuncionais" href="listProdutos.jsf?tipo=1"/></li>
+                    <li><p:link value="Cadastrar" href="cadastroProduto.jsf?console=1"/></li>
                 </ul>
             </li>
-            <li>
-                <a href="investigaciones/favoritas"><i class="fa fa-gears"></i>  CONFIGURAÇÕES</a>
-            </li>
+            
 
         </ul>
     </div>
-    <!-- /.navbar-collapse -->
+
     </h:form>
 
 

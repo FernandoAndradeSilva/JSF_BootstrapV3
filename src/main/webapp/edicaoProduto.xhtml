@@ -7,7 +7,16 @@
 
     <ui:define name="content">    
     
-	
+		<f:metadata>		
+			
+			<f:viewParam name="id" value="#{computadorMB.idItem}"
+                         converter="javax.faces.Long"/>
+					
+			<f:event type="preRenderView" listener="#{computadorMB.printTest()}" />
+			
+			
+		</f:metadata>
+		
 		
 		
         <h:form id="form">
@@ -17,12 +26,12 @@
 
             <div id="page-wrapper">
 
-                <h2>CADASTRO COMPUTADOR</h2>
+                <h2>EDIÇÃO COMPUTADOR</h2>
                 <p:separator/>
 
 			
-                <h:selectOneRadio layout="pageDirection" 
-                id="consolePc" value="#{computadorMB.tipo}" style="display: none"
+                <h:selectOneRadio layout="pageDirection" disabled="true"
+                id="consolePc"  value="#{computadorMB.tipo}" 
                                   unselectable="false" onchange="habilitaForm(this.value)">
                     <f:selectItem itemLabel="Estação" itemValue="estacao"/>
                     <f:selectItem itemLabel="Servidor" itemValue="servidor"/>
@@ -110,7 +119,7 @@
 
                                     <div class="col-sm-3" id="rowServ" align="left" style="display: none">
                                         <h:outputText value="IP:"/>
-                                        <h:inputText id="ip_address" value="#{computadorMB.computador.ip}" styleClass="form-control"/>
+                                        <h:inputText value="#{computadorMB.computador.ip}" styleClass="form-control"/>
                                     </div>
 
                                     <div class="col-sm-3" id="rowNot" align="left" style="display: none">
@@ -180,15 +189,6 @@
                                     <h:outputText value="Observações"/>
                                     <h:inputTextarea styleClass="form-control" rows="4"/>
                                 </div>
-                                
-                                <div class="col-sm-3" align="left">
-                                        <h:outputText value="Usuário Responsável "/>
-                                        <h:inputText value="#{computadorMB.computador.usuario.nome}" styleClass="form-control"/>
-                                    </div>
-                                <div class="col-sm-3" align="left">
-                                        <h:outputText value="Setor "/>
-                                        <h:inputText value="#{computadorMB.computador.usuario.setor}" styleClass="form-control"/>
-                                    </div>
 
 
                             </div>
@@ -196,7 +196,7 @@
                                 <div class="col-sm-6" align="left" style="margin-top: 8px">
 
                                     <p:commandButton value="SALVAR" action="#{computadorMB.salvarComputador()}"
-                                     styleClass="btn btn-primary btn-md" update="growlCadastro , @form" />
+                                     styleClass="btn btn-primary btn-md" update="growlCadastro" />
                                     <p:commandButton value="CANCELAR" styleClass="btn btn-default btn-md"
                                                      style="background-color: white"/>
 
@@ -220,12 +220,10 @@
 
         <script type="text/javascript">
 
-            $(document).ready(function() {
+            $(document).ready(function() {            	
+            	var var_name = $("input[name='form:consolePc']:checked").val();           	
+            	habilitaForm(var_name);
             	
-            	jQuery('#form\\:ip_address').mask('999.999.999.999');
-            	
-            	
-
             });
         </script>
 

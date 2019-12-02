@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-
+import br.com.gerenciador.dao.ComputadorDao;
 import br.com.gerenciador.dao.MonitorDao;
-
+import br.com.gerenciador.model.Computador;
 import br.com.gerenciador.model.Monitor;
 
 
@@ -18,12 +18,17 @@ public class Main {
 	@Test
 	public void teste() {	
 		
+		ComputadorDao dao = new ComputadorDao();
 		
-		MonitorDao sd = new MonitorDao();			
-		List<Monitor> monits = new ArrayList<Monitor>();		
-		monits = sd.listarPorTipo(1l);
+		List<Computador> pcs = new ArrayList<Computador>();
 		
-		System.out.println(monits);
+		pcs = dao.buscarArq("64b" , 3);
+		
+		//MonitorDao sd = new MonitorDao();			
+		//List<Monitor> monits = new ArrayList<Monitor>();		
+		//monits = sd.listarPorTipo(1l);
+		
+		System.out.println(pcs);
 		
 		
 //		GenericDao<Marca> genericDao = new GenericDao<Marca>();

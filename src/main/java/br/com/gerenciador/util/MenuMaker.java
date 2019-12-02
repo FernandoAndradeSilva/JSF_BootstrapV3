@@ -11,6 +11,8 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import javax.faces.view.ViewScoped;
 
+import br.com.gerenciador.dao.GenericDao;
+import br.com.gerenciador.dao.MonitorDao;
 import br.com.gerenciador.dao.SoftwareDao;
 import br.com.gerenciador.model.Marca;
 import br.com.gerenciador.model.Software;
@@ -28,11 +30,12 @@ public class MenuMaker implements Serializable {
     
     
     private List<Marca> marcas;
-    private List<SelectItem> sosEstacao;
     
+    private List<SelectItem> sosEstacao;    
     private List<SelectItem> sosServidor;
-    
-    
+    private List<SelectItem> monitores;
+    private List<Marca> marcasList;
+
     
 
     
@@ -40,6 +43,8 @@ public class MenuMaker implements Serializable {
     public void init() {    	        
     	this.carregaSosEstacao();
     	this.carregaSosServidor();
+    	this.carregaMonitores();
+    	this.carregaListMarcas();
     }   
     
     
@@ -101,9 +106,44 @@ public class MenuMaker implements Serializable {
         
     }
     	
+    public void carregaMonitores() {
     	
+    	List<Marca> marcas = new ArrayList<>();    	
+    	MonitorDao md = new MonitorDao();		
+    	
+    	Marca samsung = new Marca();
+    	samsung.setNome("SAMSUNG");
+    	samsung.setMonitores(md.listarPorTipo(1l));
+		
+    	marcas.add(samsung);
+    	
+    	md = new MonitorDao();		
+     	
+    	Marca lg = new Marca();
+    	lg.setNome("LG");
+    	lg.setMonitores(md.listarPorTipo(2l));
+		
+    	marcas.add(lg);
+
+
+        monitores = marcas.stream().map(marca -> {
+            SelectItemGroup group = new SelectItemGroup(marca.getNome());
+            group.setSelectItems(marca.getMonitores().stream()
+                    .map(monitor -> new SelectItem(monitor, monitor.getTamanho() + " " + monitor.getModelo()))
+                    .toArray(SelectItem[]::new));
+            return group;
+        }).collect(toList());
+
+
+
+    }	
     
-    
+    public void carregaListMarcas() {    	
+    	GenericDao<Marca> dao = new GenericDao<Marca>();    	
+    	List<Marca> marcas = dao.listar(Marca.class);
+    	this.marcasList = marcas;
+
+    }
     
     
     
@@ -146,6 +186,26 @@ public class MenuMaker implements Serializable {
 	}
 
 
+	public List<SelectItem> getMonitores() {
+		return monitores;
+	}
+
+
+	public void setMonitores(List<SelectItem> monitores) {
+		this.monitores = monitores;
+	}
+
+
+	public List<Marca> getMarcasList() {
+		return marcasList;
+	}
+
+
+	public void setMarcasList(List<Marca> marcasList) {
+		this.marcasList = marcasList;
+	}
+
+	
 	
 
     

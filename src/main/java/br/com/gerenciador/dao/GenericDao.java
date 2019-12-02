@@ -20,13 +20,18 @@ public class GenericDao<E> {
 	}
 
 	public E buscar(E entidade) {
+		
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 		E e = (E) entityManager.find(entidade.getClass(), id);
+		
+		System.out.println(e);
+		
 		return e;
 	}
 
 	public E buscarPorId(Long id, E entidade) {
-		E e = (E) entityManager.find(entidade.getClass(), id);
+		EntityTransaction transaction = entityManager.getTransaction();
+		E e = (E) entityManager.find(entidade.getClass(), id);		
 		return e;
 	}
 
@@ -45,7 +50,7 @@ public class GenericDao<E> {
 		
 		entityManager
 				.createNativeQuery(
-						"delele from " + entidade.getClass().getSimpleName().toLowerCase() + "where id =" + id)
+						"delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id = " + id)
 				.executeUpdate();
 
 		transaction.commit();

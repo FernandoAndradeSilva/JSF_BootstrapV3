@@ -7,9 +7,7 @@
 
     <ui:define name="content">    
     
-	
-		
-		
+
         <h:form id="form">
 			
 			 <p:growl id="growlCadastro" sticky="false" life="6000"/>
@@ -17,44 +15,36 @@
 
             <div id="page-wrapper">
 
-                <h2>CADASTRO COMPUTADOR</h2>
-                <p:separator/>
+                <h2>CADASTRO IMPRESSORA</h2>
+                <p:separator/>		
+              
 
-			
-                <h:selectOneRadio layout="pageDirection" 
-                id="consolePc" value="#{computadorMB.tipo}" style="display: none"
-                                  unselectable="false" onchange="habilitaForm(this.value)">
-                    <f:selectItem itemLabel="Estação" itemValue="estacao"/>
-                    <f:selectItem itemLabel="Servidor" itemValue="servidor"/>
-                    <f:selectItem itemLabel="Notebook" itemValue="notebook"/>
-                    <p:ajax event="click"  update="SelectSo"></p:ajax>
+                <h:selectOneRadio id="consoleImp"  
+                                  unselectable="false" value="#{impressoraMB.impressora.tipo}">
+                    <f:selectItem itemLabel="Multifuncional" itemValue="multi"/>
+                    <f:selectItem itemLabel="Não Multifuncional" itemValue="naoMulti"/>
+                    <p:ajax event="change" update="pnl"></p:ajax>
                 </h:selectOneRadio>
 
-                <p:selectOneRadio id="consoleImp"  style="display: none"
-                                  unselectable="false" onchange="habilitaForm(this.value)">
-                    <f:selectItem itemLabel="Colorida" itemValue="estacao"/>
-                    <f:selectItem itemLabel="Monocromática" itemValue="servidor"/>
-                </p:selectOneRadio>
-
-                <p:selectOneRadio id="consoleRed"  style="display: none"
-                                  unselectable="false" onchange="habilitaForm(this.value)">
-                    <f:selectItem itemLabel="Switch" itemValue="estacao"/>
-                    <f:selectItem itemLabel="Roteador" itemValue="servidor"/>
-                    <f:selectItem itemLabel="Adaptador" itemValue="notebook"/>
-                </p:selectOneRadio>
+                
 				
                 <br/>
                 
                 
                 
 
-                <div class="container-fluid" id="formCadastroComputador">
-                    <!-- Page Heading -->
+                <div class="container-fluid" id="formCadastroImpressora">
+                    
                     
                     
                     
                     <div class="row" id="main">
-                        <div class="col-sm-10 col-md-10 col-lg-10 well" id="content" style="display: none">
+                        <div class="col-sm-10 col-md-10 col-lg-10" id="content"  >
+                        
+                        	
+                        	<p:panel id="pnl" 
+                        	rendered="#{impressoraMB.impressora.tipo == 'multi' or impressoraMB.impressora.tipo == 'naoMulti'}">
+                        
                             <div class="row">
                                 <div class="camposGerais">
 									
@@ -95,22 +85,12 @@
 
                                 </div>
 
-                                <div id="camposComputador" style="display: none">
-                                    <div class="col-sm-3" id="rowEst" align="left" style="display: none">
-                                        <h:outputText value="Monitor:"/>
-                                        <h:selectOneMenu style="background-color: white;"
-                                                         converter="omnifaces.SelectItemsConverter"
-                                                         styleClass="form-control"
-                                                         value="#{computadorMB.computador.monitor}">
-                                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
-                                            <f:selectItems value="#{menuMaker.monitores}"/>
-
-                                        </h:selectOneMenu>
-                                    </div>
+                                
+                                    
 
                                     <div class="col-sm-3" id="rowServ" align="left" style="display: none">
                                         <h:outputText value="IP:"/>
-                                        <h:inputText id="ip_address" value="#{computadorMB.computador.ip}" styleClass="form-control"/>
+                                        <h:inputText value="#{computadorMB.computador.ip}" styleClass="form-control"/>
                                     </div>
 
                                     <div class="col-sm-3" id="rowNot" align="left" style="display: none">
@@ -154,51 +134,18 @@
                                          styleClass="form-control"/>
                                     </div>
 
-                                    <div class="col-sm-3" align="left">
-                                        <h:outputText value="Memória(GB): "/>
-                                        <p:inputText type="number" 
-                                        value="#{computadorMB.computador.memoria}"
-                                        styleClass="form-control"/>
-                                    </div>
-                                    <div class="col-sm-3" align="left">
-                                        <h:outputText value="HD(GB): "/>
-                                        <p:inputText type="number" 
-                                        value="#{computadorMB.computador.hd}"
-                                        styleClass="form-control"/>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3 camposGerais" align="left">
-                                    <h:outputText value="Data de validade: "/>
-                                    <h:inputText styleClass="datepicker form-control" />
-                                </div>
-
-
-
-                                <div class="col-sm-6 camposGerais" align="left">
-                                    <h:outputText value="Observações"/>
-                                    <h:inputTextarea styleClass="form-control" rows="4"/>
-                                </div>
+                                   
                                 
-                                <div class="col-sm-3" align="left">
-                                        <h:outputText value="Usuário Responsável "/>
-                                        <h:inputText value="#{computadorMB.computador.usuario.nome}" styleClass="form-control"/>
-                                    </div>
-                                <div class="col-sm-3" align="left">
-                                        <h:outputText value="Setor "/>
-                                        <h:inputText value="#{computadorMB.computador.usuario.setor}" styleClass="form-control"/>
-                                    </div>
+
 
 
                             </div>
+                            
+                            </p:panel>
                             <div class="row">
                                 <div class="col-sm-6" align="left" style="margin-top: 8px">
 
-                                    <p:commandButton value="SALVAR" action="#{computadorMB.salvarComputador()}"
-                                     styleClass="btn btn-primary btn-md" update="growlCadastro , @form" />
-                                    <p:commandButton value="CANCELAR" styleClass="btn btn-default btn-md"
-                                                     style="background-color: white"/>
+                                    
 
                                 </div>
                             </div>
@@ -214,20 +161,10 @@
 
             </div>
         </h:form>
-        <h:outputScript library="js" name="validar.js"/>
+        
 
 
 
-        <script type="text/javascript">
-
-            $(document).ready(function() {
-            	
-            	jQuery('#form\\:ip_address').mask('999.999.999.999');
-            	
-            	
-
-            });
-        </script>
 
 
     </ui:define>
